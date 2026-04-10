@@ -2,9 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>WinGo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  google-site-verification: google13b7d6fe9f8aa12e.html
+<title>Jalwa.Game</title>
+
+<!-- Mobile Responsive -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
@@ -12,8 +13,6 @@ body {
   font-family:Arial;
   background: linear-gradient(180deg, #0b1a3a, #06122b);
   color:white;
-  padding: 10px;
-
 }
 
 /* HEADER */
@@ -22,11 +21,14 @@ body {
   padding:15px;
   text-align:center;
   font-size:20px;
+  font-weight:bold;
 }
 
 /* CARD */
 .card {
-  margin:10px;
+  width:90%;
+  max-width:400px;
+  margin:10px auto;
   padding:15px;
   background:#1c3b7a;
   border-radius:12px;
@@ -37,39 +39,19 @@ body {
   font-size:18px;
   margin-bottom:10px;
 }
-  body {
-  font-size: 16px;
-}
-
-.header {
-  background:#132b5c;
-  padding:15px;
-  text-align:center;
-  font-size:20px;
-  font-weight:bold;
-}
-
-button {
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background: linear-gradient(90deg, #00c853, #00e676);
-  color:white;
-  font-size:16px;
-}
 
 /* BALLS */
-.ball {
-  width: 10vw;
-  height: 10vw;
-  max-width: 40px;
-  max-height: 40px;
+.balls {
+  display:flex;
+  justify-content:center;
+  margin:10px 0;
 }
 
 .ball {
-  width:40px;
-  height:40px;
+  width:10vw;
+  height:10vw;
+  max-width:40px;
+  max-height:40px;
   border-radius:50%;
   margin:5px;
   display:flex;
@@ -79,7 +61,7 @@ button {
   color:white;
 }
 
-/* Flat colors */
+/* Flat Colors */
 .green { background:#28a745; }
 .red { background:#dc3545; }
 .violet { background:#6f42c1; }
@@ -89,10 +71,11 @@ button {
   width:100%;
   padding:12px;
   border:none;
-  border-radius:8px;
-  background:#00c853;
+  border-radius:10px;
+  background: linear-gradient(90deg, #00c853, #00e676);
   color:white;
   font-size:16px;
+  cursor:pointer;
 }
 
 /* TABLE */
