@@ -10,10 +10,10 @@
 body {
   margin:0;
   font-family:Arial;
-  background:#0b1a3a;
+  background: linear-gradient(180deg, #0b1a3a, #06122b);
   color:white;
   padding: 10px;
-}
+
 }
 
 /* HEADER */
@@ -26,9 +26,10 @@ body {
 
 /* CARD */
 .card {
-  width: 90%;
-  max-width: 400px;
-  margin: 10px auto;
+  margin:10px;
+  padding:15px;
+  background:#1c3b7a;
+  border-radius:12px;
 }
 
 /* TIMER */
@@ -41,11 +42,21 @@ body {
 }
 
 .header {
-  font-size: 18px;
+  background:#132b5c;
+  padding:15px;
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
 }
 
 button {
-  font-size: 16px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background: linear-gradient(90deg, #00c853, #00e676);
+  color:white;
+  font-size:16px;
 }
 
 /* BALLS */
@@ -65,11 +76,13 @@ button {
   align-items:center;
   justify-content:center;
   font-weight:bold;
+  color:white;
 }
 
-.green {background:#00c853;}
-.red {background:#ff3d00;}
-.violet {background:#aa00ff;}
+/* Flat colors */
+.green { background:#28a745; }
+.red { background:#dc3545; }
+.violet { background:#6f42c1; }
 
 /* BUTTON */
 button {
@@ -99,7 +112,7 @@ td, th {
 
 <body>
 
-<div class="header">🎮 WinGo 30sec</div>
+<div class="header">Jalwa.Game 🎮</div>
 
 <div class="card">
   <div class="timer">⏱ Time: <span id="time">30</span>s</div>
