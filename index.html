@@ -7,6 +7,9 @@
 <!-- Mobile Responsive -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- ✅ Google Verification (FIXED) -->
+<meta name="google-site-verification" content="google13b7d6fe9f8aa12e" />
+
 <style>
 body {
   margin:0;
@@ -129,8 +132,17 @@ function getColor(n){
   return "green";
 }
 
+/* ✅ CUSTOM PERIOD FORMAT */
 function generatePeriod(){
-  return Date.now();
+  let now = new Date();
+
+  let year = now.getFullYear();
+  let month = String(now.getMonth() + 1).padStart(2, '0');
+  let day = String(now.getDate()).padStart(2, '0');
+
+  let random = Math.floor(100000000 + Math.random() * 900000000);
+
+  return `${year}${month}${day}${random}`;
 }
 
 function play(){
