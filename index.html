@@ -5,69 +5,97 @@
 <title>Jalwa.Game</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="google13b7d6fe9f8aa12e" />
 
 <style>
 body{
   margin:0;
-  font-family:Arial;
-  background:linear-gradient(180deg,#0b1a3a,#06122b);
+  font-family: 'Segoe UI', sans-serif;
+  background:linear-gradient(180deg,#0a1633,#050d22);
   color:white;
 }
 
+/* HEADER */
 .header{
-  background:#0d1f4b;
+  background:#0c1f4a;
   padding:15px;
   text-align:center;
   font-size:22px;
   font-weight:bold;
+  letter-spacing:1px;
 }
 
-/* TOP BOX */
+/* GAME MODES */
+.modes{
+  display:flex;
+  gap:10px;
+  padding:10px;
+}
+
+.mode{
+  flex:1;
+  background:#102b5c;
+  padding:12px;
+  border-radius:12px;
+  text-align:center;
+  opacity:0.6;
+}
+
+.active{
+  background:linear-gradient(135deg,#3be0b0,#00c853);
+  color:black;
+  opacity:1;
+}
+
+/* TIMER BOX */
 .topbox{
   margin:10px;
   padding:15px;
-  border-radius:12px;
-  background:linear-gradient(90deg,#2ee59d,#00c853);
+  border-radius:15px;
+  background:linear-gradient(135deg,#3be0b0,#00c853);
   color:black;
 }
 
-.timerbox{
+.timerrow{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-.time{
-  font-size:24px;
+.timebox{
+  background:#0c1f4a;
+  color:white;
+  padding:8px 12px;
+  border-radius:8px;
   font-weight:bold;
+  letter-spacing:2px;
 }
 
 /* COLOR BUTTONS */
 .colors{
   display:flex;
-  margin:10px;
   gap:10px;
-}
-
-.colors div{
-  flex:1;
-  text-align:center;
   padding:10px;
-  border-radius:10px;
-  font-weight:bold;
 }
 
-.greenBtn{background:#28a745;}
-.violetBtn{background:#6f42c1;}
-.redBtn{background:#dc3545;}
+.btn{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.green{background:#2ecc71;}
+.red{background:#e74c3c;}
+.violet{background:#9b59b6;}
 
 /* BALL GRID */
 .grid{
   display:grid;
   grid-template-columns: repeat(5,1fr);
-  gap:10px;
-  margin:10px;
+  gap:12px;
+  padding:10px;
 }
 
 .ball{
@@ -78,15 +106,18 @@ body{
   align-items:center;
   justify-content:center;
   font-weight:bold;
-  font-size:18px;
-  color:white;
+  font-size:20px;
   margin:auto;
+  color:white;
+  box-shadow: inset 0 4px 8px rgba(255,255,255,0.3),
+              inset 0 -4px 8px rgba(0,0,0,0.4),
+              0 4px 10px rgba(0,0,0,0.6);
 }
 
 /* BALL COLORS */
-.green{background:#28a745;}
-.red{background:#dc3545;}
-.violet{background:#6f42c1;}
+.ball.green{background:radial-gradient(circle,#4cff91,#1e8449);}
+.ball.red{background:radial-gradient(circle,#ff6b6b,#922b21);}
+.ball.violet{background:radial-gradient(circle,#d580ff,#5b2c6f);}
 
 /* BIG SMALL */
 .bigsmall{
@@ -97,29 +128,35 @@ body{
 .big{
   flex:1;
   background:#d98c2e;
-  padding:12px;
+  padding:14px;
   text-align:center;
-  border-radius:10px 0 0 10px;
+  border-radius:12px 0 0 12px;
 }
 
 .small{
   flex:1;
   background:#4a80d8;
-  padding:12px;
+  padding:14px;
   text-align:center;
-  border-radius:0 10px 10px 0;
+  border-radius:0 12px 12px 0;
 }
 
-/* TABLE */
+/* HISTORY */
+.card{
+  margin:10px;
+  padding:10px;
+  background:#102b5c;
+  border-radius:12px;
+}
+
 table{
   width:100%;
-  margin-top:10px;
   font-size:14px;
 }
 
 td,th{
-  padding:6px;
   text-align:center;
+  padding:6px;
 }
 </style>
 
@@ -129,20 +166,28 @@ td,th{
 
 <div class="header">Jalwa.Game</div>
 
-<!-- TOP TIMER BOX -->
-<div class="topbox">
-  <div class="timerbox">
-    <div>WinGo 30sec</div>
-    <div class="time" id="time">30</div>
-  </div>
-  <div>Period: <span id="period"></span></div>
+<!-- MODES -->
+<div class="modes">
+  <div class="mode active">WinGo 30s</div>
+  <div class="mode">1 Min</div>
+  <div class="mode">3 Min</div>
+  <div class="mode">5 Min</div>
 </div>
 
-<!-- COLOR BUTTONS -->
+<!-- TIMER -->
+<div class="topbox">
+  <div class="timerrow">
+    <div>How to play</div>
+    <div class="timebox" id="time">00:30</div>
+  </div>
+  <div style="margin-top:10px;">Period: <span id="period"></span></div>
+</div>
+
+<!-- COLORS -->
 <div class="colors">
-  <div class="greenBtn">Green</div>
-  <div class="violetBtn">Violet</div>
-  <div class="redBtn">Red</div>
+  <div class="btn green">Green</div>
+  <div class="btn violet">Violet</div>
+  <div class="btn red">Red</div>
 </div>
 
 <!-- BALL GRID -->
@@ -155,7 +200,7 @@ td,th{
 </div>
 
 <!-- HISTORY -->
-<div style="margin:10px;">
+<div class="card">
   <h3>Game History</h3>
   <table border="1">
     <tr>
@@ -169,57 +214,53 @@ td,th{
 </div>
 
 <script>
-let time = 30;
-let history = [];
+let time=30;
+let history=[];
 
 function getColor(n){
-  if(n==0 || n==5) return "violet";
+  if(n==0||n==5) return "violet";
   if(n%2==0) return "red";
   return "green";
 }
 
 function generatePeriod(){
-  let now = new Date();
-  let year = now.getFullYear();
-  let month = String(now.getMonth()+1).padStart(2,'0');
-  let day = String(now.getDate()).padStart(2,'0');
-  let random = Math.floor(100000000 + Math.random()*900000000);
-  return `${year}${month}${day}${random}`;
+  let d=new Date();
+  return d.getFullYear()+
+  String(d.getMonth()+1).padStart(2,'0')+
+  String(d.getDate()).padStart(2,'0')+
+  Math.floor(100000000+Math.random()*900000000);
 }
 
-/* GRID BALLS */
 function loadGrid(){
   let html="";
   for(let i=0;i<=9;i++){
-    html += `<div class="ball ${getColor(i)}">${i}</div>`;
+    html+=`<div class="ball ${getColor(i)}">${i}</div>`;
   }
-  document.getElementById("grid").innerHTML = html;
+  document.getElementById("grid").innerHTML=html;
 }
 
-/* PLAY */
 function play(){
-  let num = Math.floor(Math.random()*10);
-  let color = getColor(num);
-  let size = num>=5 ? "Big":"Small";
-  let period = generatePeriod();
+  let num=Math.floor(Math.random()*10);
+  let color=getColor(num);
+  let size=num>=5?"Big":"Small";
+  let period=generatePeriod();
 
-  document.getElementById("period").innerText = period;
+  document.getElementById("period").innerText=period;
 
   history.unshift({period,num,size,color});
   if(history.length>10) history.pop();
 
   let table="";
   history.forEach(h=>{
-    table += `
-    <tr>
-      <td>${h.period}</td>
-      <td>${h.num}</td>
-      <td>${h.size}</td>
-      <td>${h.color}</td>
+    table+=`<tr>
+    <td>${h.period}</td>
+    <td>${h.num}</td>
+    <td>${h.size}</td>
+    <td>${h.color}</td>
     </tr>`;
   });
 
-  document.getElementById("history").innerHTML = table;
+  document.getElementById("history").innerHTML=table;
 }
 
 /* TIMER */
@@ -229,7 +270,8 @@ setInterval(()=>{
     play();
     time=30;
   }
-  document.getElementById("time").innerText = time;
+  let sec=String(time).padStart(2,'0');
+  document.getElementById("time").innerText="00:"+sec;
 },1000);
 
 loadGrid();
