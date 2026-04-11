@@ -12,6 +12,8 @@ body{
   font-family:'Segoe UI',sans-serif;
   background:linear-gradient(180deg,#0a1633,#050d22);
   color:white;
+  max-width:420px;
+  margin:auto;
 }
 
 /* HEADER */
@@ -26,23 +28,22 @@ body{
 /* MODES */
 .modes{
   display:flex;
-  gap:10px;
+  gap:8px;
   padding:10px;
 }
 
 .mode{
   flex:1;
   background:#102b5c;
-  padding:12px;
-  border-radius:12px;
+  padding:10px;
+  border-radius:10px;
   text-align:center;
-  opacity:0.6;
+  font-size:14px;
 }
 
 .active{
   background:linear-gradient(135deg,#3be0b0,#00c853);
   color:black;
-  opacity:1;
 }
 
 /* TIMER */
@@ -62,7 +63,7 @@ body{
 .timebox{
   background:#0c1f4a;
   color:white;
-  padding:8px 12px;
+  padding:6px 10px;
   border-radius:8px;
   font-weight:bold;
 }
@@ -70,16 +71,17 @@ body{
 /* COLORS */
 .colors{
   display:flex;
-  gap:10px;
+  gap:8px;
   padding:10px;
 }
 
 .btn{
   flex:1;
-  padding:12px;
-  border-radius:12px;
+  padding:10px;
+  border-radius:10px;
   text-align:center;
   font-weight:bold;
+  font-size:14px;
 }
 
 .green{background:#2ecc71;}
@@ -90,19 +92,21 @@ body{
 .grid{
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:12px;
-  padding:10px;
+  gap:8px;
+  padding:8px;
 }
 
 .ball{
-  width:60px;
-  height:60px;
+  width:16vw;
+  height:16vw;
+  max-width:55px;
+  max-height:55px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:bold;
-  font-size:20px;
+  font-size:18px;
   margin:auto;
   color:white;
   box-shadow: inset 0 4px 8px rgba(255,255,255,0.3),
@@ -123,23 +127,23 @@ body{
 .big{
   flex:1;
   background:#d98c2e;
-  padding:14px;
+  padding:12px;
   text-align:center;
-  border-radius:12px 0 0 12px;
+  border-radius:10px 0 0 10px;
 }
 
 .small{
   flex:1;
   background:#4a80d8;
-  padding:14px;
+  padding:12px;
   text-align:center;
-  border-radius:0 12px 12px 0;
+  border-radius:0 10px 10px 0;
 }
 
 /* TABS */
 .tabs{
   display:flex;
-  gap:10px;
+  gap:8px;
   margin:10px;
 }
 
@@ -149,6 +153,7 @@ body{
   text-align:center;
   border-radius:10px;
   background:#102b5c;
+  font-size:14px;
 }
 
 .tab.active{
@@ -164,9 +169,16 @@ body{
   border-radius:12px;
 }
 
+/* TABLE FIX */
+.table-wrapper{
+  width:100%;
+  overflow-x:auto;
+}
+
 table{
   width:100%;
   border-collapse:collapse;
+  font-size:12px;
 }
 
 th{
@@ -214,7 +226,6 @@ td,th{
   <div class="small">Small</div>
 </div>
 
-<!-- TABS -->
 <div class="tabs">
   <div class="tab active">Game History</div>
   <div class="tab">Chart</div>
@@ -222,15 +233,17 @@ td,th{
 </div>
 
 <div class="card">
-  <table border="1">
-    <tr>
-      <th>Period</th>
-      <th>Number</th>
-      <th>Big/Small</th>
-      <th>Color</th>
-    </tr>
-    <tbody id="history"></tbody>
-  </table>
+  <div class="table-wrapper">
+    <table border="1">
+      <tr>
+        <th>Period</th>
+        <th>Number</th>
+        <th>Big/Small</th>
+        <th>Color</th>
+      </tr>
+      <tbody id="history"></tbody>
+    </table>
+  </div>
 </div>
 
 <script>
@@ -259,7 +272,6 @@ function play(){
 
   document.getElementById("period").innerText=period;
 
-  // ✅ RANDOM BALLS CHANGE
   let gridHTML="";
   for(let i=0;i<10;i++){
     let r=Math.floor(Math.random()*10);
@@ -283,15 +295,13 @@ function play(){
   document.getElementById("history").innerHTML=table;
 }
 
-/* TIMER */
 setInterval(()=>{
   time--;
   if(time<=0){
     play();
     time=30;
   }
-  let sec=String(time).padStart(2,'0');
-  document.getElementById("time").innerText="00:"+sec;
+  document.getElementById("time").innerText="00:"+String(time).padStart(2,'0');
 },1000);
 
 play();
