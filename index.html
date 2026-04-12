@@ -169,7 +169,6 @@ body{
   border-radius:12px;
 }
 
-/* TABLE FIX */
 .table-wrapper{
   width:100%;
   overflow-x:auto;
@@ -285,10 +284,38 @@ function play(){
   let table="";
   history.forEach(h=>{
     table+=`<tr>
+
     <td>${h.period}</td>
-    <td>${h.num}</td>
+
+    <td>
+      <div style="
+        width:28px;
+        height:28px;
+        margin:auto;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:${h.color};
+        color:white;
+        font-weight:bold;
+      ">
+        ${h.num}
+      </div>
+    </td>
+
     <td>${h.size}</td>
-    <td>${h.color}</td>
+
+    <td>
+      <span style="
+        display:inline-block;
+        width:12px;
+        height:12px;
+        border-radius:50%;
+        background:${h.color};
+      "></span>
+    </td>
+
     </tr>`;
   });
 
