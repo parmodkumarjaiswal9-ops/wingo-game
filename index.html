@@ -199,7 +199,7 @@ td,th{
 
 <!-- 🔐 PASSWORD SCREEN -->
 <div id="lockScreen">
-  <h2>Enter Password</h2>
+  <h2>🔒 Enter Password</h2>
   <input type="password" id="pass" placeholder="Password"
   style="padding:10px;border-radius:8px;border:none;margin:10px;">
   <button onclick="checkPass()"
@@ -262,14 +262,28 @@ td,th{
 let time=30;
 let history=[];
 
-/* 🔐 PASSWORD CHECK */
+/* 🔐 PASSWORD CHECK (WITH SAVE) */
 function checkPass(){
   let p=document.getElementById("pass").value;
+
   if(p==="gavd"){
+    localStorage.setItem("access","true"); // save login
     document.getElementById("lockScreen").style.display="none";
   }else{
     alert("Wrong Password ❌");
   }
+}
+
+/* ✅ ENTER KEY SUPPORT */
+document.getElementById("pass").addEventListener("keypress",function(e){
+  if(e.key==="Enter"){
+    checkPass();
+  }
+});
+
+/* ✅ AUTO LOGIN IF ALREADY ENTERED */
+if(localStorage.getItem("access")==="true"){
+  document.getElementById("lockScreen").style.display="none";
 }
 
 function getColor(n){
