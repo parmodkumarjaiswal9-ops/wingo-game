@@ -272,8 +272,20 @@ function play(){
   history.forEach(h=>{
     table+=`<tr>
     <td>${h.period}</td>
-    <td style="color:${h.color}; font-weight:bold;">${h.num}</td>
+
+    <!-- 🔥 BOLD + GLOW NUMBER -->
+    <td style="
+      color:${h.color};
+      font-weight:900;
+      font-size:16px;
+      letter-spacing:1px;
+      text-shadow:0 0 6px ${h.color};
+    ">
+      ${h.num}
+    </td>
+
     <td>${h.size}</td>
+
     <td>
       <span style="
         display:inline-block;
