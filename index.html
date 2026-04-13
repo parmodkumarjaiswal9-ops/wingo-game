@@ -172,10 +172,6 @@ body{
   border-radius:12px;
 }
 
-.table-wrapper{
-  width:100%;
-}
-
 table{
   width:100%;
   border-collapse:collapse;
@@ -197,7 +193,7 @@ td,th{
 
 <body>
 
-<!-- 🔐 PASSWORD SCREEN -->
+<!-- 🔐 PASSWORD -->
 <div id="lockScreen">
   <h2>🔒 Enter Password</h2>
   <input type="password" id="pass" placeholder="Password"
@@ -245,59 +241,49 @@ td,th{
 </div>
 
 <div class="card">
-  <div class="table-wrapper">
-    <table border="1">
-      <tr>
-        <th>Period</th>
-        <th>Number</th>
-        <th>Big/Small</th>
-        <th>Color</th>
-      </tr>
-      <tbody id="history"></tbody>
-    </table>
-  </div>
+<table border="1">
+<tr>
+<th>Period</th>
+<th>Number</th>
+<th>Big/Small</th>
+<th>Color</th>
+</tr>
+<tbody id="history"></tbody>
+</table>
 </div>
 
 <script>
 let time=30;
 let history=[];
 
-/* 🔐 PASSWORD CHECK (WITH SAVE) */
+/* 🔐 PASSWORD */
 function checkPass(){
   let p=document.getElementById("pass").value;
-
   if(p==="gavd"){
-    localStorage.setItem("access","true"); // save login
+    localStorage.setItem("access","true");
     document.getElementById("lockScreen").style.display="none";
   }else{
     alert("Wrong Password ❌");
   }
 }
 
-/* ✅ ENTER KEY SUPPORT */
-document.getElementById("pass").addEventListener("keypress",function(e){
-  if(e.key==="Enter"){
-    checkPass();
-  }
-});
-
-/* ✅ AUTO LOGIN IF ALREADY ENTERED */
 if(localStorage.getItem("access")==="true"){
   document.getElementById("lockScreen").style.display="none";
+}
+
+/* 🔥 PERIOD START VALUE */
+let basePeriod = 20260413100051666;
+
+/* 🔥 AUTO INCREMENT PERIOD */
+function generatePeriod(){
+  basePeriod++;
+  return basePeriod;
 }
 
 function getColor(n){
   if(n==0||n==5) return "violet";
   if(n%2==0) return "red";
   return "green";
-}
-
-function generatePeriod(){
-  let d=new Date();
-  return d.getFullYear()+
-  String(d.getMonth()+1).padStart(2,'0')+
-  String(d.getDate()).padStart(2,'0')+
-  Math.floor(100000000+Math.random()*900000000);
 }
 
 function play(){
