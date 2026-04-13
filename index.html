@@ -92,7 +92,6 @@ body{
   border-radius:10px;
   text-align:center;
   font-weight:bold;
-  font-size:14px;
 }
 
 .green{background:#2ecc71;}
@@ -180,7 +179,6 @@ table{
 
 th{
   background:#1e3a8a;
-  color:white;
 }
 
 td,th{
@@ -188,7 +186,6 @@ td,th{
   text-align:center;
 }
 </style>
-
 </head>
 
 <body>
@@ -241,15 +238,15 @@ td,th{
 </div>
 
 <div class="card">
-<table border="1">
-<tr>
-<th>Period</th>
-<th>Number</th>
-<th>Big/Small</th>
-<th>Color</th>
-</tr>
-<tbody id="history"></tbody>
-</table>
+  <table>
+    <tr>
+      <th>Period</th>
+      <th>Number</th>
+      <th>Big/Small</th>
+      <th>Color</th>
+    </tr>
+    <tbody id="history"></tbody>
+  </table>
 </div>
 
 <script>
@@ -259,6 +256,7 @@ let history=[];
 /* 🔐 PASSWORD */
 function checkPass(){
   let p=document.getElementById("pass").value;
+
   if(p==="gavd"){
     localStorage.setItem("access","true");
     document.getElementById("lockScreen").style.display="none";
@@ -267,26 +265,38 @@ function checkPass(){
   }
 }
 
+document.getElementById("pass").addEventListener("keypress",function(e){
+  if(e.key==="Enter") checkPass();
+});
+
 if(localStorage.getItem("access")==="true"){
   document.getElementById("lockScreen").style.display="none";
 }
 
-/* 🔥 PERIOD START VALUE (LOCAL STORAGE FIX) */
+/* COLOR */
+function getColor(n){
+  if(n==0||n==5) return "violet";
+  if(n%2==0) return "red";
+  return "green";
+}
+
+/* 🔥 PERIOD (REVERSE SAME AS IMAGE) */
 let basePeriod = localStorage.getItem("period");
 
 if(basePeriod){
   basePeriod = parseInt(basePeriod);
 }else{
-  basePeriod = 20260413100051666;
+  basePeriod = 20260413100051690;
 }
 
-/* 🔥 AUTO INCREMENT + SAVE */
 function generatePeriod(){
-  basePeriod++;
-  localStorage.setItem("period", basePeriod); // save
-  return basePeriod;
+  let current = basePeriod;
+  basePeriod--;
+  localStorage.setItem("period", basePeriod);
+  return current;
 }
 
+/* GAME */
 function play(){
   let num=Math.floor(Math.random()*10);
   let color=getColor(num);
@@ -309,15 +319,34 @@ function play(){
   history.forEach(h=>{
     table+=`<tr>
     <td>${h.period}</td>
-    <td style="color:${h.color}; font-weight:900; font-size:16px; text-shadow:0 0 6px ${h.color};">${h.num}</td>
+
+    <td style="
+      color:${h.color};
+      font-weight:900;
+      font-size:16px;
+      text-shadow:0 0 6px ${h.color};
+    ">
+      ${h.num}
+    </td>
+
     <td>${h.size}</td>
-    <td><span style="width:12px;height:12px;border-radius:50%;display:inline-block;background:${h.color};"></span></td>
+
+    <td>
+      <span style="
+        width:12px;
+        height:12px;
+        border-radius:50%;
+        display:inline-block;
+        background:${h.color};
+      "></span>
+    </td>
     </tr>`;
   });
 
   document.getElementById("history").innerHTML=table;
 }
 
+/* TIMER */
 setInterval(()=>{
   time--;
   if(time<=0){
