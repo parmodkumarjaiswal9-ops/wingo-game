@@ -14,7 +14,6 @@ body{
   max-width:420px;
   margin:auto;
 }
-
 #lockScreen{
   position:fixed;
   top:0;
@@ -26,76 +25,43 @@ body{
   align-items:center;
   justify-content:center;
   flex-direction:column;
+  z-index:9999;
 }
-
-.header{
-  background:#0c1f4a;
-  padding:15px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-}
-
+.header{background:#0c1f4a;padding:15px;text-align:center;font-size:22px;font-weight:bold;}
 .modes{display:flex;gap:8px;padding:10px;}
 .mode{flex:1;background:#102b5c;padding:10px;border-radius:10px;text-align:center;}
 .active{background:linear-gradient(135deg,#3be0b0,#00c853);color:black;}
-
-.topbox{
-  margin:10px;
-  padding:15px;
-  border-radius:15px;
-  background:linear-gradient(135deg,#3be0b0,#00c853);
-  color:black;
-}
-
+.topbox{margin:10px;padding:15px;border-radius:15px;background:linear-gradient(135deg,#3be0b0,#00c853);color:black;}
 .timerrow{display:flex;justify-content:space-between;}
-.timebox{background:#0c1f4a;color:white;padding:6px 10px;border-radius:8px;}
-
+.timebox{background:#0c1f4a;color:white;padding:6px 10px;border-radius:8px;font-weight:bold;}
 .colors{display:flex;gap:8px;padding:10px;}
 .btn{flex:1;padding:10px;border-radius:10px;text-align:center;font-weight:bold;}
 .green{background:#2ecc71;}
 .red{background:#e74c3c;}
 .violet{background:#9b59b6;}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:8px;
-  padding:8px;
-}
-
-.ball{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  color:white;
-}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:8px;}
+.ball{width:16vw;height:16vw;max-width:55px;max-height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px;margin:auto;color:white;}
 .ball.green{background:#2ecc71;}
 .ball.red{background:#e74c3c;}
 .ball.violet{background:#9b59b6;}
-
 .bigsmall{display:flex;margin:10px;}
-.big{flex:1;background:#d98c2e;padding:12px;text-align:center;}
-.small{flex:1;background:#4a80d8;padding:12px;text-align:center;}
-
+.big{flex:1;background:#d98c2e;padding:12px;text-align:center;border-radius:10px 0 0 10px;}
+.small{flex:1;background:#4a80d8;padding:12px;text-align:center;border-radius:0 10px 10px 0;}
+.tabs{display:flex;gap:8px;margin:10px;}
+.tab{flex:1;padding:10px;text-align:center;border-radius:10px;background:#102b5c;}
+.tab.active{background:#2ee59d;color:black;}
 .card{margin:10px;padding:10px;background:#102b5c;border-radius:12px;}
-
-table{width:100%;border-collapse:collapse;}
-td,th{padding:6px;text-align:center;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
 th{background:#1e3a8a;}
+td,th{padding:6px;text-align:center;}
 </style>
 </head>
 
 <body>
 
-<!-- PASSWORD -->
 <div id="lockScreen">
-  <h2>Enter Password</h2>
-  <input type="password" id="pass">
+  <h2>🔒 Enter Password</h2>
+  <input type="password" id="pass" placeholder="Password">
   <button onclick="checkPass()">Enter</button>
 </div>
 
@@ -103,22 +69,17 @@ th{background:#1e3a8a;}
 
 <div class="topbox">
   <div class="timerrow">
-    <div>Timer</div>
-    <div id="time">00:30</div>
+    <div>How to play</div>
+    <div class="timebox" id="time">00:30</div>
   </div>
-  <div>Period: <span id="period"></span></div>
+  <div style="margin-top:10px;">Period: <span id="period"></span></div>
 </div>
 
 <div class="grid" id="grid"></div>
 
 <div class="card">
 <table>
-<tr>
-<th>Period</th>
-<th>Number</th>
-<th>Size</th>
-<th>Color</th>
-</tr>
+<tr><th>Period</th><th>Number</th><th>Size</th><th>Color</th></tr>
 <tbody id="history"></tbody>
 </table>
 </div>
@@ -130,11 +91,11 @@ let history=[];
 /* PASSWORD */
 function checkPass(){
   if(document.getElementById("pass").value==="gavd"){
-    localStorage.setItem("ok","1");
+    localStorage.setItem("access","true");
     document.getElementById("lockScreen").style.display="none";
-  }else alert("Wrong");
+  }else alert("Wrong Password");
 }
-if(localStorage.getItem("ok")=="1"){
+if(localStorage.getItem("access")==="true"){
   document.getElementById("lockScreen").style.display="none";
 }
 
@@ -145,12 +106,24 @@ function getColor(n){
   return "green";
 }
 
-/* PERIOD FIX */
-let base = Number(localStorage.getItem("p")||20260413100051690);
-function getPeriod(){
-  base++;
-  localStorage.setItem("p",base);
-  return base;
+/* 🔥 FIXED PERIOD SYSTEM */
+let basePeriod = localStorage.getItem("period");
+
+if(!basePeriod){
+  basePeriod = 20260413100051690;
+}else{
+  basePeriod = parseInt(basePeriod);
+
+  // 🔥 agar galti se chota number aa gaya ho to reset
+  if(basePeriod < 20260413100051690){
+    basePeriod = 20260413100051690;
+  }
+}
+
+function generatePeriod(){
+  basePeriod = basePeriod + 1;
+  localStorage.setItem("period", basePeriod);
+  return basePeriod;
 }
 
 /* GAME */
@@ -158,35 +131,34 @@ function play(){
   let num=Math.floor(Math.random()*10);
   let color=getColor(num);
   let size=num>=5?"Big":"Small";
+  let period=generatePeriod();
 
-  let p=getPeriod();
-  document.getElementById("period").innerText=p;
+  document.getElementById("period").innerText=period;
 
-  let g="";
+  let gridHTML="";
   for(let i=0;i<10;i++){
     let r=Math.floor(Math.random()*10);
-    g+=`<div class="ball ${getColor(r)}">${r}</div>`;
+    gridHTML+=`<div class="ball ${getColor(r)}">${r}</div>`;
   }
-  document.getElementById("grid").innerHTML=g;
+  document.getElementById("grid").innerHTML=gridHTML;
 
-  history.unshift({p,num,size,color});
+  history.unshift({period,num,size,color});
   if(history.length>10) history.pop();
 
-  let t="";
+  let table="";
   history.forEach(h=>{
-    t+=`<tr>
-    <td>${h.p}</td>
-    <td style="color:${h.color};font-weight:bold">${h.num}</td>
+    table+=`<tr>
+    <td>${h.period}</td>
+    <td style="color:${h.color};font-weight:900;font-size:16px;">${h.num}</td>
     <td>${h.size}</td>
-    <td><div style="width:10px;height:10px;background:${h.color};margin:auto"></div></td>
+    <td><span style="width:12px;height:12px;border-radius:50%;display:inline-block;background:${h.color};"></span></td>
     </tr>`;
   });
 
-  document.getElementById("history").innerHTML=t;
+  document.getElementById("history").innerHTML=table;
 }
 
 /* TIMER */
-play();
 setInterval(()=>{
   time--;
   if(time<=0){
@@ -195,6 +167,8 @@ setInterval(()=>{
   }
   document.getElementById("time").innerText="00:"+String(time).padStart(2,'0');
 },1000);
+
+play();
 </script>
 
 </body>
