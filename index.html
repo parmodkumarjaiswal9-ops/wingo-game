@@ -280,20 +280,19 @@ function getColor(n){
   return "green";
 }
 
-/* 🔥 PERIOD (REVERSE SAME AS IMAGE) */
+/* 🔥 PERIOD (FORWARD INCREASE FIX) */
 let basePeriod = localStorage.getItem("period");
 
 if(basePeriod){
   basePeriod = parseInt(basePeriod);
 }else{
-  basePeriod = 20260413100051690;
+  basePeriod = 20260413100051690; // starting
 }
 
 function generatePeriod(){
-  let current = basePeriod;
-  basePeriod--;
+  basePeriod++; // 🔥 yahi change hai
   localStorage.setItem("period", basePeriod);
-  return current;
+  return basePeriod;
 }
 
 /* GAME */
