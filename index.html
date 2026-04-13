@@ -271,19 +271,20 @@ if(localStorage.getItem("access")==="true"){
   document.getElementById("lockScreen").style.display="none";
 }
 
-/* 🔥 PERIOD START VALUE */
-let basePeriod = 20260413100051666;
+/* 🔥 PERIOD START VALUE (LOCAL STORAGE FIX) */
+let basePeriod = localStorage.getItem("period");
 
-/* 🔥 AUTO INCREMENT PERIOD */
-function generatePeriod(){
-  basePeriod++;
-  return basePeriod;
+if(basePeriod){
+  basePeriod = parseInt(basePeriod);
+}else{
+  basePeriod = 20260413100051666;
 }
 
-function getColor(n){
-  if(n==0||n==5) return "violet";
-  if(n%2==0) return "red";
-  return "green";
+/* 🔥 AUTO INCREMENT + SAVE */
+function generatePeriod(){
+  basePeriod++;
+  localStorage.setItem("period", basePeriod); // save
+  return basePeriod;
 }
 
 function play(){
